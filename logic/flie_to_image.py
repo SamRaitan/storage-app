@@ -32,29 +32,22 @@ class FileToImg:
             for x in range(image_width):
                 if index + 5 >= len(hex_data):  # Ensure we don't exceed the hex data length
                     break
-                # Convert hex to RGB
                 r = int(hex_data[index:index + 2], 16)
                 g = int(hex_data[index + 2:index + 4], 16)
                 b = int(hex_data[index + 4:index + 6], 16)
                 pixels[x, y] = (r, g, b)
                 index += 6
         
-        # Add metadata
         metadata = PngImagePlugin.PngInfo()
         for key, value in metadata_dict.items():
             metadata.add_text(key, value)
 
-        # Save the image with metadata
         image.save(f'{output_image_path}.png', "PNG", pnginfo=metadata)
         return f'{output_image_path}.png'
 
     @classmethod
     def process_file_to_image(cls, file_bytes, original_file_name):
-        """
-        Orchestrates the process of converting file bytes into an image with metadata.
-        """
         print(type(file_bytes))
-        # Ensure file_bytes is of type bytes
         if not isinstance(file_bytes, bytes):
             raise ValueError("Expected file_bytes to be a bytes object.")
 
@@ -62,6 +55,6 @@ class FileToImg:
         metadata_dict = {
             "OriginalFileName": os.path.splitext(original_file_name)[0],
             "Extension": os.path.splitext(original_file_name)[1],
-            "CustomMessage": "hello"
+            "CustomMessage": "hello" # user hash in the future
         }
         return FileToImg._create_image_from_hex(hex_data, os.path.splitext(original_file_name)[0], metadata_dict)
