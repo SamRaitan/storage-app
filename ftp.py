@@ -14,7 +14,6 @@ remote_file = os.getenv('REMOTE_FILE')
 
 
 def ftp_upload_file(file):
-    print('------', file)
     remote_file_name = remote_file.format(FILENAME=file)
     # Create an SSH client
     ssh = paramiko.SSHClient()

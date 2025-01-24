@@ -15,7 +15,6 @@ async def upload_file(file: UploadFile = File(...)):
     try:
         file_extension = str(file.filename).split('.')[1]
         output_image_path = 'temp_file.png'
-        print(file.filename)
         ftp_upload_file(FileToImg.process_file_to_image(await file.read(), file.filename))
     except Exception:
         raise HTTPException(status_code=500, detail=f"Failed to save file: {traceback.print_exc()}")

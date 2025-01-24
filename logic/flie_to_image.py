@@ -47,10 +47,6 @@ class FileToImg:
 
     @classmethod
     def process_file_to_image(cls, file_bytes, original_file_name):
-        print(type(file_bytes))
-        if not isinstance(file_bytes, bytes):
-            raise ValueError("Expected file_bytes to be a bytes object.")
-
         hex_data = FileToImg._convert_bytes_to_hex(file_bytes)
         metadata_dict = {
             "OriginalFileName": os.path.splitext(original_file_name)[0],
